@@ -5,7 +5,9 @@
  */
 package pages;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 
 /**
@@ -15,11 +17,7 @@ import org.openqa.selenium.ie.InternetExplorerDriver;
 public class LoginPage {
 
     public static void goTo() {
-        String driverPath = "D:/IEDriver32/IEDriverServer.exe";
-        System.setProperty("webdriver.ie.driver", driverPath);
-        WebDriver driver = new InternetExplorerDriver();
-
-        Driver.insatnce().navigate().to("http://localhost:18881/wp-login.php");
+        Driver.instance.navigate().to("http://localhost:7503/wp-login.php");
     }
     
     public static LoginCommand loginAs(String userName) {
@@ -43,6 +41,15 @@ public class LoginPage {
         }
         
         public void login() {
+            
+            WebElement userLogin = Driver.instance.findElement(By.id("user_login"));
+            userLogin.sendKeys(userName);
+            
+            WebElement passwordInput = Driver.instance.findElement(By.id("user_pass"));
+            passwordInput.sendKeys(password);
+            
+            WebElement submitButton = Driver.instance.findElement(By.id("wp-submit"));
+            submitButton.click();
             
         }
     }

@@ -5,10 +5,28 @@
  */
 package pages;
 
+import java.util.concurrent.TimeUnit;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.ie.InternetExplorerDriver;
+
 /**
  *
  * @author oslysenko
  */
 public class Driver {
+    
+    public static WebDriver instance;
+    
+    public static void initialize() {
+        String driverPath = "D:/IEDriver/IEDriverServer.exe";
+        System.setProperty("webdriver.ie.driver", driverPath);
+        instance = new InternetExplorerDriver();
+        
+        instance.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+    }
+    
+    public static void close() {
+        instance.close();
+    }
     
 }

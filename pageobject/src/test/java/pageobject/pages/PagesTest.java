@@ -11,46 +11,43 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import pages.DashboardPage;
 import pages.Driver;
+import pages.ListPostsPage;
 import pages.LoginPage;
 import pages.NewPostPage;
 import pages.PostPage;
 
-
 /**
  *
- * @author oslysenko
+ * @author LocalUser
  */
-public class LoginTest {
-    
+public class PagesTest {
+
     @BeforeClass
     public void init() {
         Driver.initialize();
     }
-    
+
     @Test
     public void adminUserCanLogin() {
         LoginPage.goTo();
         LoginPage.loginAs("Alex")
                 .withPassword("Alx545684")
                 .login();
-        
+
         assertTrue(DashboardPage.isAt(), "Failed to login.");
     }
-    
-    @Test(dependsOnMethods = { "adminUserCanLogin" }) 
-    public void canCreateABasicPost() {
-        NewPostPage.goTo();
-        NewPostPage.createPost("Test Post Title")
-                .withBody("Body of the Test Post.")
-                .publish();
+
+    @Test(dependsOnMethods = {"adminUserCanLogin"})
+    public void openSamplePage() {
+        ListPostsPage.goTo(ListPostsPage.PageType.PAGE);
+        ListPostsPage.selectPage("Sample Page");
         
-        NewPostPage.goToNewPost();
-        assertEquals(PostPage.getTitle(), "Test Post Title", "Title did not match new post.");
+        assertTrue(NewPostPage.isInEditMode(), "Wasn't in edit mode");
+        assertEquals("Sample Page", PostPage.getTitle(), "Title didn't match");
     }
-    
+
     @AfterClass
     public void cleanUp() {
         Driver.close();
     }
-    
 }
