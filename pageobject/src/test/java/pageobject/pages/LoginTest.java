@@ -20,20 +20,10 @@ import pages.PostPage;
  *
  * @author oslysenko
  */
-public class LoginTest {
-    
-    @BeforeClass
-    public void init() {
-        Driver.initialize();
-    }
+public class LoginTest extends BaseTest {
     
     @Test
-    public void adminUserCanLogin() {
-        LoginPage.goTo();
-        LoginPage.loginAs("Alex")
-                .withPassword("Alx545684")
-                .login();
-        
+    public void adminUserCanLogin() {    
         assertTrue(DashboardPage.isAt(), "Failed to login.");
     }
     
@@ -46,11 +36,6 @@ public class LoginTest {
         
         NewPostPage.goToNewPost();
         assertEquals(PostPage.getTitle(), "Test Post Title", "Title did not match new post.");
-    }
-    
-    @AfterClass
-    public void cleanUp() {
-        Driver.close();
     }
     
 }

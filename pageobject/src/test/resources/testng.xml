@@ -5,6 +5,7 @@
         <parameter name="path" value="/"/>
         <classes>
             <class name="pageobject.pages.LoginTest"/>
+            <class name="pageobject.pages.PagesTest"/>
         </classes>
     </test>  
 </suite>

@@ -17,7 +17,7 @@ import org.openqa.selenium.ie.InternetExplorerDriver;
 public class LoginPage {
 
     public static void goTo() {
-        Driver.instance.navigate().to("http://localhost:7503/wp-login.php");
+        Driver.instance.navigate().to(Driver.getBaseAddress() + "/wp-login.php");
     }
     
     public static LoginCommand loginAs(String userName) {

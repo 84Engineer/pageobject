@@ -20,14 +20,9 @@ import pages.PostPage;
  *
  * @author LocalUser
  */
-public class PagesTest {
+public class PagesTest extends BaseTest {
 
-    @BeforeClass
-    public void init() {
-        Driver.initialize();
-    }
-
-    @Test
+   /* @Test
     public void adminUserCanLogin() {
         LoginPage.goTo();
         LoginPage.loginAs("Alex")
@@ -37,17 +32,14 @@ public class PagesTest {
         assertTrue(DashboardPage.isAt(), "Failed to login.");
     }
 
-    @Test(dependsOnMethods = {"adminUserCanLogin"})
+    @Test(dependsOnMethods = {"adminUserCanLogin"})*/
+    @Test
     public void openSamplePage() {
         ListPostsPage.goTo(ListPostsPage.PageType.PAGE);
         ListPostsPage.selectPage("Sample Page");
         
         assertTrue(NewPostPage.isInEditMode(), "Wasn't in edit mode");
-        assertEquals("Sample Page", PostPage.getTitle(), "Title didn't match");
+        assertEquals("Sample Page", NewPostPage.getTitle(), "Title didn't match");
     }
 
-    @AfterClass
-    public void cleanUp() {
-        Driver.close();
-    }
 }

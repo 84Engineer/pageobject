@@ -5,11 +5,9 @@
  */
 package pages;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
 
 /**
@@ -19,6 +17,8 @@ import org.openqa.selenium.interactions.Actions;
 public class NewPostPage {
 
     public static void goTo() {
+        
+        LeftNavigation.Posts.AddNew.select();
         WebElement postMenu = Driver.instance.findElement(By.xpath("//div[@class='wp-menu-name' and contains(text(), 'Posts')]"));
         Actions action = new Actions(Driver.instance);
         action.moveToElement(postMenu).perform();
@@ -51,12 +51,8 @@ public class NewPostPage {
             Driver.instance.switchTo().frame("content_ifr");
             Driver.instance.switchTo().activeElement().sendKeys(body);
             Driver.instance.switchTo().defaultContent();
-
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException ex) {
-                System.out.println(ex);
-            }
+        
+            Driver.wait(1);
 
             Driver.instance.findElement(By.id("publish")).click();
         }
@@ -68,6 +64,21 @@ public class NewPostPage {
                 .findElements(By.tagName("a"))
                 .get(0)
                 .click();
+    }
+
+    public static boolean isInEditMode() {
+
+        return Driver.instance.findElements(By.tagName("h1"))
+                .get(0)
+                .getText()
+                .equals("Edit Page Add New");
+    }
+
+    public static String getTitle() {
+        String title = Driver.instance.findElement(By.id("title"))
+                .getAttribute("value");
+        
+        return title != null ? title : "";
     }
 
 }
