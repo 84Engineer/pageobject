@@ -5,6 +5,7 @@
  */
 package pages;
 
+import selenium.Driver;
 import org.openqa.selenium.By;
 
 /**

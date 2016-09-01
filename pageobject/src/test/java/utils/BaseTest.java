@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pageobject.pages;
+package utils;
 
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
-import pages.Driver;
+import selenium.Driver;
 import pages.LoginPage;
 
 /**

@@ -5,6 +5,8 @@
  */
 package pages;
 
+import selenium.Driver;
+import navigation.LeftNavigation;
 import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -19,12 +21,12 @@ public class NewPostPage {
     public static void goTo() {
         
         LeftNavigation.Posts.AddNew.select();
-        WebElement postMenu = Driver.instance.findElement(By.xpath("//div[@class='wp-menu-name' and contains(text(), 'Posts')]"));
+        /*WebElement postMenu = Driver.instance.findElement(By.xpath("//div[@class='wp-menu-name' and contains(text(), 'Posts')]"));
         Actions action = new Actions(Driver.instance);
         action.moveToElement(postMenu).perform();
 
         WebElement newPostItem = Driver.instance.findElement(By.linkText("Add New"));//findElement(By.xpath("//a[@href='post-new.php' and contains(text(), 'Add New')]"));
-        newPostItem.click();
+        newPostItem.click();*/
     }
 
     public static CreatePostCommand createPost(String title) {

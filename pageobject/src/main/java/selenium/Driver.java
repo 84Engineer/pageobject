@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pages;
+package selenium;
 
 import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.WebDriver;
@@ -18,7 +18,7 @@ public class Driver {
     public static WebDriver instance;
 
     public static void initialize() {
-        String driverPath = "D:/IEDriver/IEDriverServer.exe";
+        String driverPath = "D:/IEDriver32/IEDriverServer.exe";
         System.setProperty("webdriver.ie.driver", driverPath);
         instance = new InternetExplorerDriver();
 
@@ -30,7 +30,7 @@ public class Driver {
     }
 
     public static String getBaseAddress() {
-        return "http://localhost:7503";
+        return "http://localhost:18881";
     }
 
     public static void wait(int seconds) {

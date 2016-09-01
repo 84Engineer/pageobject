@@ -3,14 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package pageobject.pages;
+package smoketests;
 
+import utils.BaseTest;
 import static org.testng.Assert.*;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import pages.DashboardPage;
-import pages.Driver;
+import selenium.Driver;
 import pages.LoginPage;
 import pages.NewPostPage;
 import pages.PostPage;

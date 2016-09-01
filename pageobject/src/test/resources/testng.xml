@@ -4,8 +4,9 @@
     <test name="Test1">
         <parameter name="path" value="/"/>
         <classes>
-            <class name="pageobject.pages.LoginTest"/>
-            <class name="pageobject.pages.PagesTest"/>
+            <!--<class name="pageobject.pages.LoginTest"/>
+            <class name="pageobject.pages.PagesTest"/>-->
+            <class name="poststests.AllPagesTests"/>
         </classes>
     </test>  
 </suite>
