@@ -20,6 +20,7 @@ import org.openqa.selenium.support.ui.Select;
 public class ListPostsPage {
 
     private static int lastCount;
+    private static List<WebElement> links;
 
     public static void goTo(PageType pageType) {
 
@@ -66,14 +67,17 @@ public class ListPostsPage {
     public static void trashPost(String title) {
         List<WebElement> rows = Driver.instance.findElements(By.tagName("tr"));
         for (WebElement row : rows) {
-            List<WebElement> links = Driver.instance.findElements(By.linkText(title));
+            Driver.noWait(() -> {
+                ListPostsPage.links = Driver.instance.findElements(By.linkText(title));
+            });
+            
             if (links.size() > 0) {
-                
+
                 row.findElement(By.xpath("//input[@type='checkbox' and @name='post[]']")).click();
                 Select select = new Select(Driver.instance.findElement(By.id("bulk-action-selector-bottom")));
-                
+
                 select.selectByVisibleText("Move to Trash");
-                
+
                 Driver.instance.findElement(By.id("doaction2")).click();
                 /*Actions action = new Actions(Driver.instance);
                 action.moveToElement(links.get(0));

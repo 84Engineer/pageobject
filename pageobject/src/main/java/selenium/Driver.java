@@ -8,6 +8,7 @@ package selenium;
 import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.interactions.Action;
 
 /**
  *
@@ -22,7 +23,7 @@ public class Driver {
         System.setProperty("webdriver.ie.driver", driverPath);
         instance = new InternetExplorerDriver();
 
-        instance.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+        turnOnWait();
     }
 
     public static void close() {
@@ -39,6 +40,20 @@ public class Driver {
         } catch (InterruptedException ex) {
             System.out.println(ex);
         }
+    }
+    
+    public static void noWait(Action action) {
+        turnOffWait();
+        action.perform();
+        turnOnWait();
+    }
+    
+    private static void turnOffWait() {
+        instance.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
+    }
+    
+    private static void turnOnWait() {
+        instance.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
     }
 
 }
