@@ -6,9 +6,14 @@
 package utils;
 
 import org.testng.annotations.AfterClass;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeTest;
 import selenium.Driver;
 import pages.LoginPage;
+import workflows.PostCreator;
 
 /**
  *
@@ -16,18 +21,21 @@ import pages.LoginPage;
  */
 public class BaseTest {
 
-    @BeforeClass
+    @BeforeMethod
     public void init() {
         Driver.initialize();
         
+        PostCreator.initialize();
+
         LoginPage.goTo();
         LoginPage.loginAs("Alex")
                 .withPassword("Alx545684")
                 .login();
     }
 
-    @AfterClass
+    @AfterMethod
     public void cleanUp() {
+        PostCreator.cleanUp();
         Driver.close();
     }
 

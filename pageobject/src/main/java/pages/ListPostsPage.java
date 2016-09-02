@@ -9,6 +9,7 @@ import java.util.List;
 import selenium.Driver;
 import navigation.LeftNavigation;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
@@ -67,10 +68,12 @@ public class ListPostsPage {
     public static void trashPost(String title) {
         List<WebElement> rows = Driver.instance.findElements(By.tagName("tr"));
         for (WebElement row : rows) {
+
             Driver.noWait(() -> {
-                ListPostsPage.links = Driver.instance.findElements(By.linkText(title));
+                links = Driver.instance.findElements(By.linkText(title));
+                System.out.println("Inside lambda");
             });
-            
+
             if (links.size() > 0) {
 
                 row.findElement(By.xpath("//input[@type='checkbox' and @name='post[]']")).click();
@@ -79,14 +82,25 @@ public class ListPostsPage {
                 select.selectByVisibleText("Move to Trash");
 
                 Driver.instance.findElement(By.id("doaction2")).click();
-                /*Actions action = new Actions(Driver.instance);
-                action.moveToElement(links.get(0));
-                action.perform();
-                //row.findElement(By.className("submitdelete")).click();
-                row.findElement(By.className("trash")).click();*/
                 return;
             }
         }
+    }
+
+    public static void searchForPost(String searchString) {
+
+        if (!isAt()) {
+            ListPostsPage.goTo(ListPostsPage.PageType.POSTS);
+        }
+
+        WebElement searchBox = Driver.instance.findElement(By.id("post-search-input"));
+        searchBox.sendKeys(searchString);
+        searchBox.sendKeys(Keys.ENTER);
+    }
+
+    public static boolean isAt() {
+        List<WebElement> elements = Driver.instance.findElements(By.tagName("h1"));
+        return elements.get(0).getText().equals("Posts");
     }
 
 }

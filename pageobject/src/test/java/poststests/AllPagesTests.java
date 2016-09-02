@@ -9,7 +9,9 @@ import static org.testng.Assert.*;
 import org.testng.annotations.Test;
 import pages.ListPostsPage;
 import pages.NewPostPage;
+import selenium.Driver;
 import utils.BaseTest;
+import workflows.PostCreator;
 /**
  *
  * @author oslysenko
@@ -22,17 +24,24 @@ public class AllPagesTests extends BaseTest {
         ListPostsPage.goTo(ListPostsPage.PageType.POSTS);
         ListPostsPage.storeCount();
         
-        NewPostPage.goTo();
-        NewPostPage.createPost("Added posts show up, title")
-                .withBody("Added posts show up, body")
-                .publish();
+        PostCreator.createPost();
         
         ListPostsPage.goTo(ListPostsPage.PageType.POSTS);
         assertEquals(ListPostsPage.previousPostCount() + 1, ListPostsPage.currentPostCount(), "Count of posts did not increase.");
-        assertTrue(ListPostsPage.doesPostExistWithTitle("Added posts show up, title"));
+        assertTrue(ListPostsPage.doesPostExistWithTitle(PostCreator.previousTitle()));
         
-        ListPostsPage.trashPost("Added posts show up, title");
+        ListPostsPage.trashPost(PostCreator.previousTitle());
         assertEquals(ListPostsPage.previousPostCount(), ListPostsPage.currentPostCount(), "Couldn't trash post.");
+        
+    }
+    
+    @Test
+    public void canSearchPost() {
+        
+        PostCreator.createPost();
+        ListPostsPage.searchForPost(PostCreator.previousTitle());
+        assertTrue(ListPostsPage.doesPostExistWithTitle(PostCreator.previousTitle()));
+        Driver.wait(3);
         
     }
     

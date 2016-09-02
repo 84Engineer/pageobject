@@ -44,7 +44,9 @@ public class Driver {
     
     public static void noWait(Action action) {
         turnOffWait();
+        System.out.println("Turning off wait");
         action.perform();
+        System.out.println("Turning on wait");
         turnOnWait();
     }
     
